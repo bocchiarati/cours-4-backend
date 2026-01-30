@@ -6,6 +6,8 @@ RUN apt install git zip unzip libxml2-dev -y
 RUN docker-php-ext-install pdo_mysql 
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY . /var/www/html
+
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 WORKDIR /var/www/html
