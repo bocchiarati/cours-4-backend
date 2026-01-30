@@ -9,7 +9,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class SeanceFixture extends Fixture
 {
-    public function __construct(private readonly ExerciceRepository $exerciceRepository) {}
+    public function __construct(private readonly ExerciceRepository $exerciceRepository)
+    {
+    }
     public function load(ObjectManager $manager): void
     {
         $faker = \Faker\Factory::create('fr_FR');
