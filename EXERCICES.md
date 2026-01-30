@@ -22,9 +22,10 @@ Listes des points attendu:
 - [ ] script bash qui execute tout les test
 - [ ] La commande d'ajout de données utilise FakerPHP
 - [x] Créer au moins deux entité avec les commandes
+- [x] Créer le fichier de migration avec la commande symfony
 
 Listes des points bonus
-- [ ] Ajouter des test unitaire
+- [ ] Ajouter des tests unitaires
 - [ ] un dossier Githook, avec un precommit et prepush qui execute tout les tests
 
 Listes des point bonus si vous avez le projet sur github
