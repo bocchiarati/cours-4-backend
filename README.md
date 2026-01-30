@@ -59,6 +59,29 @@ docker compose run --rm php composer run phpcs:fix
 docker compose run --rm php composer run phpcstan
 ```
 
+# Lancer le projet
+## Initialiser la BD
+La base de donnée est initialisable avec la commande 
+```shell
+docker compose run --rm php php bin/console doctrine:migration:migrate
+```
 
+La commande pour remplir la BD avec des données générées est :
+```shell
+docker compose run --rm php php bin/console doctrine:fixture:load
+```
+## ROUTES :
+Le projet est accessible via les routes :
+```shell
+localhost:8080/seances
+```
+et 
+```shell
+localhost:8080/seance/id
+```
 
-
+## Test Unitaire
+Vous pouvez lancer les tests unitaires avec la commande :
+```shell
+docker compose run --rm php bin/test.sh
+```
