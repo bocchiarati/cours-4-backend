@@ -1,4 +1,6 @@
 {
+    "name": "bocchiarati/cours-4-backend",
+    "description": "Projet Symfony TD4",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
