@@ -21,6 +21,7 @@ Listes des points attendu:
 - [ ] Créer une commande qui ajoute des données en BDD
 - [ ] script bash qui execute tout les test
 - [ ] La commande d'ajout de données utilise FakerPHP
+- [x] Créer au moins deux entité avec les commandes
 
 Listes des points bonus
 - [ ] Ajouter des test unitaire
