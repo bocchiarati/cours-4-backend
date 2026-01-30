@@ -31,10 +31,12 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-    - name: run test
+    - name: run phpcs
+      run: composer run phpcs
+    - name: run phpstan
+      run: composer run phpstan
+    - name: run unit test
       run : /bin/test.sh
-    - name: run code review
-      run : composer run phpcs & composer run phpstan
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
