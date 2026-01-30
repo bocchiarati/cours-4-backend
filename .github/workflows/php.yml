@@ -35,4 +35,4 @@ jobs:
         run: docker run --rm -v ${{ github.workspace }}:/var/www/html -w /var/www/html php composer run phpstan
 
       - name: Run Unit Test
-        run: docker run --rm -v ${{ github.workspace }}:/var/www/html -w /var/www/html php sh /bin/test.sh
+        run: docker run --rm -v ${{ github.workspace }}:/var/www/html -w /var/www/html php php bin/phpunit
