@@ -1,4 +1,4 @@
-name: PHP Composer
+name: PHP Composer (Docker)
 
 on:
   push:
@@ -6,40 +6,33 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
-  build:
-
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      
+      # 1. Construction de l'image à partir de ton Dockerfile
+      - name: Build Docker image
+        run: docker build -t php -f docker/php/Dockerfile .
+      
+      # 2. Validation Composer via Docker
+      - name: Validate composer.json
+        run: docker run --rm php composer validate --strict
+      
+      # 3. Installation des dépendances
+      # On monte le dossier courant pour que le vendor soit créé/accessible
+      - name: Install dependencies
+        run: |
+          docker run --rm -v ${{ github.workspace }}:/var/www/html -w /var/www/html php composer install --prefer-dist --no-progress
+      
+      # 4. Exécution des tests et analyses
+      - name: Run PHPCS
+        run: docker run --rm -v ${{ github.workspace }}:/var/www/html -w /var/www/html php composer run phpcs
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+      - name: Run PHPStan
+        run: docker run --rm -v ${{ github.workspace }}:/var/www/html -w /var/www/html php composer run phpstan
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
-    - name: run phpcs
-      run: composer run phpcs
-    - name: run phpstan
-      run: composer run phpstan
-    - name: run unit test
-      run : /bin/test.sh
-
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-    # - name: Run test suite
-    #   run: composer run-script test
+      - name: Run Unit Test
+        run: docker run --rm -v ${{ github.workspace }}:/var/www/html -w /var/www/html php sh /bin/test.sh
