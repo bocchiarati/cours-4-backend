@@ -19,7 +19,7 @@ final class SeanceController extends AbstractController
     }
 
     #[Route('/seance/{id}', name: 'app_seance_create')]
-    public function seances(SeanceRepository $s_repo, ExerciceRepository $exerciceRepository, $id): Response
+    public function seances(SeanceRepository $s_repo, ExerciceRepository $exerciceRepository, int $id): Response
     {
         $seance = $s_repo->findWithExercises($id);
         $exercice = $seance->getExercises();
