@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SeanceController!{% endblock %}
+
+{% block body %}
+<div>
+    {% for seance in seances %}
+        <div style="display:flex; gap: 2em">
+            <p>
+                <a href="/seance/{{ seance.id }}">{{ seance.name }}</a>
+            </p>
+            <p>
+                {{ seance.description }}
+            </p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
